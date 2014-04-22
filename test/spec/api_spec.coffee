@@ -39,7 +39,7 @@ describe 'SUBSCRIBE endpoints', ->
     it 'should send status code 200', ->
       @res.statusCode.should.equal 200
     it 'should set Content-Type: text/event-stream; charset=utf-8', ->
-      expect(@res.headers['content-type']).to.equal 'text/event-stream; charset=utf-8'
+      expect(@res.headers['content-type']).to.match /text\/event-stream;\s?charset=utf-8/
     it 'should set Cache-Control: no-cache', ->
       expect(@res.headers['cache-control']).to.equal 'no-cache'
     it 'should set a proper keep-alive header', ->
