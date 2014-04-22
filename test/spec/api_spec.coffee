@@ -91,6 +91,12 @@ describe 'SUBSCRIBE endpoints', ->
         @msg = e
         @es.close()
         done()
+      @es.onmessage = (e) =>
+        # if eventsource-node returns a normal message, it means it got something
+        # without an event field.
+        @es.close()
+        done(new Error('got a message without an event field'))
+
 
     # all of this block is meaningless if testing from the eventsource-node event
     it 'should send properly formatted SSE messages'
