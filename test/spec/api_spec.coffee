@@ -56,11 +56,12 @@ describe 'SUBSCRIBE endpoints', ->
         @es.close()
         done()
 
+    # all of this block is meaningless if testing from the eventsource-node event
     it 'should send properly formatted SSE messages'
-    it 'should send messages WITH a data field', ->
-      expect(@msg.data).to.not.be.undefined
+    it 'should send messages WITH a data field'
     it 'should send messages WITHOUT an event field'
     it 'should send messages WITHOUT an ID field'
+
     it 'each msg `data:` should contain a unified codepoint ID'
 
   describe 'GET /subscribe/eps', ->
@@ -73,11 +74,12 @@ describe 'SUBSCRIBE endpoints', ->
         @es.close()
         done()
 
+    # all of this block is meaningless if testing from the eventsource-node event
     it 'should send properly formatted SSE messages'
-    it 'should send messages WITH a data field', ->
-      expect(@msg.data).to.not.be.undefined
+    it 'should send messages WITH a data field'
     it 'should send messages WITHOUT an event field'
     it 'should send messages WITHOUT an ID field'
+
     it 'each msg `data:` should be a JSON key/value map of uid=>scoreIncrease'
 
   describe 'GET /subscribe/details/:id', ->
@@ -90,11 +92,12 @@ describe 'SUBSCRIBE endpoints', ->
         @es.close()
         done()
 
+    # all of this block is meaningless if testing from the eventsource-node event
     it 'should send properly formatted SSE messages'
-    it 'should send messages WITH a data field', ->
-      expect(@msg.data).to.not.be.undefined
+    it 'should send messages WITH a data field'
     it 'should send messages WITH an event field'
     it 'should send messages WITHOUT an ID field'
+
     it 'should include an event of format `stream.tweet_updates.ID`'
     it 'each msg `data:` should include a ensmallened JSON representation of matching tweet'
 
