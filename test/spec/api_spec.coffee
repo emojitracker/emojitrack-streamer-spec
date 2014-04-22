@@ -24,7 +24,7 @@ describe 'SUBSCRIBE endpoints', ->
 
   describe 'HEAD /subscribe/*', ->
     before ->
-      @options = {method: 'HEAD', host: server.host, port: server.port, path: '/subscribe/eps'}
+      @options = {method: 'HEAD', host: server.hostname, port: parseInt(server.port), path: '/subscribe/eps'}
 
     it 'should close after sending headers, not remain open', (done) ->
       req = http.request @options, (res) =>
