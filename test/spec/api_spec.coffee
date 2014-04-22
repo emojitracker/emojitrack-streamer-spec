@@ -17,6 +17,8 @@ expect = chai.expect
 request = require('supertest')
 EventSource = require('eventsource')
 
+Error.stackTraceLimit = 0
+
 unless process.env.STREAM_SERVER?
   console.log "You need to set STREAM_SERVER so we know what to test against!"
   process.exit(1)
