@@ -39,3 +39,7 @@ Example:
 *** Description.
 
 This endpoint can be disabled in configuration.
+
+## Compliance testing
+
+    $ STREAM_SERVER=http://host:port npm test
