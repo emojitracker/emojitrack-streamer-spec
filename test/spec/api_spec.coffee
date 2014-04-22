@@ -52,17 +52,18 @@ describe 'SUBSCRIBE endpoints', ->
     before ->
       url = server.href + 'subscribe/raw'
       @es = new EventSource(url)
-    it 'should get a message back', (done) ->
+    it 'should get a normal data message back', (done) ->
       @es.onmessage = (e) =>
         @msg = e
         @es.close()
         done()
 
     # all of this block is meaningless if testing from the eventsource-node event
-    it 'should send properly formatted SSE messages'
-    it 'should send messages WITH a data field'
-    it 'should send messages WITHOUT an event field'
-    it 'should send messages WITHOUT an ID field'
+    describe 'wirespec details', ->
+      it 'should send properly formatted SSE messages'
+      it 'should send messages WITH a data field'
+      it 'should send messages WITHOUT an event field'
+      it 'should send messages WITHOUT an ID field'
 
     it 'each msg `data:` should contain a unified codepoint ID'
 
@@ -77,10 +78,11 @@ describe 'SUBSCRIBE endpoints', ->
         done()
 
     # all of this block is meaningless if testing from the eventsource-node event
-    it 'should send properly formatted SSE messages'
-    it 'should send messages WITH a data field'
-    it 'should send messages WITHOUT an event field'
-    it 'should send messages WITHOUT an ID field'
+    describe 'wirespec details', ->
+      it 'should send properly formatted SSE messages'
+      it 'should send messages WITH a data field'
+      it 'should send messages WITHOUT an event field'
+      it 'should send messages WITHOUT an ID field'
 
     it 'each msg `data:` should be a JSON key/value map of uid=>scoreIncrease'
 
@@ -101,10 +103,11 @@ describe 'SUBSCRIBE endpoints', ->
 
 
     # all of this block is meaningless if testing from the eventsource-node event
-    it 'should send properly formatted SSE messages'
-    it 'should send messages WITH a data field'
-    it 'should send messages WITH an event field'
-    it 'should send messages WITHOUT an ID field'
+    describe 'wirespec details', ->
+      it 'should send properly formatted SSE messages'
+      it 'should send messages WITH a data field'
+      it 'should send messages WITH an event field'
+      it 'should send messages WITHOUT an ID field'
 
     it 'should include an event of format `stream.tweet_updates.ID`'
     it 'each msg `data:` should include a ensmallened JSON representation of matching tweet'
