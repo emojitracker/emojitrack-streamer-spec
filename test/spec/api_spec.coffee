@@ -114,7 +114,7 @@ describe 'SUBSCRIBE endpoints', ->
 
 describe 'ADMIN endpoints', ->
 
-  describe 'GET /admin/node.json', ->
+  describe 'GET /admin/status.json', ->
     before (done) ->
       @nodez = {
         method: 'GET',
@@ -125,7 +125,7 @@ describe 'ADMIN endpoints', ->
 
       #make SSE connection so we are guaranted at least one active conn in pool
       url = server.href + 'subscribe/details/1F680'
-      @es = new EventSource(url)
+      @es = new EventSource(url, {headers:{'User-Agent': 'emojitrack-streamer-spec-tester/1.0'}})
       @es.onopen = -> done()
 
     after ->
