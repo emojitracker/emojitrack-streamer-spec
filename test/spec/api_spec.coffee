@@ -36,15 +36,15 @@ describe 'SUBSCRIBE endpoints', ->
         @res = res
         done()
       req.end()
-    it 'should send status code 200', ->
+    it 'MUST send status code 200', ->
       @res.statusCode.should.equal 200
-    it 'should set Content-Type: text/event-stream; charset=utf-8', ->
+    it 'SHOULD set Content-Type: text/event-stream; charset=utf-8', ->
       expect(@res.headers['content-type']).to.match /text\/event-stream;\s?charset=utf-8/
-    it 'should set Cache-Control: no-cache', ->
+    it 'SHOULD set Cache-Control: no-cache', ->
       expect(@res.headers['cache-control']).to.equal 'no-cache'
-    it 'should set a proper keep-alive header', ->
+    it 'SHOULD set a proper keep-alive header', ->
       expect(@res.headers['connection']).to.equal 'keep-alive'
-    it 'should set proper CORS headers', ->
+    it 'SHOULD set proper CORS headers', ->
       expect(@res.headers['access-control-allow-origin']).to.equal '*'
 
 
@@ -60,10 +60,10 @@ describe 'SUBSCRIBE endpoints', ->
 
     # all of this block is meaningless if testing from the eventsource-node event
     describe 'wirespec details', ->
-      it 'should send properly formatted SSE messages'
-      it 'should send messages WITH a data field'
-      it 'should send messages WITHOUT an event field'
-      it 'should send messages WITHOUT an ID field'
+      it 'MUST send properly formatted SSE messages'
+      it 'MUST send messages WITH a data field'
+      it 'SHOULD send messages WITHOUT an event field'
+      it 'SHOULD send messages WITHOUT an ID field'
 
     it 'each msg `data:` should contain a unified codepoint ID'
 
@@ -79,10 +79,10 @@ describe 'SUBSCRIBE endpoints', ->
 
     # all of this block is meaningless if testing from the eventsource-node event
     describe 'wirespec details', ->
-      it 'should send properly formatted SSE messages'
-      it 'should send messages WITH a data field'
-      it 'should send messages WITHOUT an event field'
-      it 'should send messages WITHOUT an ID field'
+      it 'MUST send properly formatted SSE messages'
+      it 'MUST send messages WITH a data field'
+      it 'SHOULD send messages WITHOUT an event field'
+      it 'SHOULD send messages WITHOUT an ID field'
 
     it 'each msg `data:` should be a JSON key/value map of uid=>scoreIncrease'
 
@@ -104,25 +104,68 @@ describe 'SUBSCRIBE endpoints', ->
 
     # all of this block is meaningless if testing from the eventsource-node event
     describe 'wirespec details', ->
-      it 'should send properly formatted SSE messages'
-      it 'should send messages WITH a data field'
-      it 'should send messages WITH an event field'
-      it 'should send messages WITHOUT an ID field'
+      it 'MUST send properly formatted SSE messages'
+      it 'MUST send messages WITH a data field'
+      it 'SHOULD send messages WITH an event field'
+      it 'SHOULD send messages WITHOUT an ID field'
 
     it 'should include an event of format `stream.tweet_updates.ID`'
     it 'each msg `data:` should include a ensmallened JSON representation of matching tweet'
 
 describe 'ADMIN endpoints', ->
 
-  # describe 'GET /admin/node.json', ->
-  #   before ->
-  #     @nudez = {method: 'GET', host: server.hostname, port: server.port, path: '/subscribe/admin/node.json'}
-  #
-  #   it 'should return results', (done) ->
-  #     req = http.request @nudez, (res) =>
-  #       @res2 = res
-  #       done()
-  #     req.end
-  #   it 'should send utf-8 encoded JSON', ->
-  #     expect(@res2.headers['content-type']).to.equal 'application/json'
-  #     expect(@res2.headers['content-type']).to.equal 'charset=utf8'
+  describe 'GET /admin/node.json', ->
+    before ->
+      #make SSE connection so we are guaranted at least one active conn in pool
+      url = server.href + 'subscribe/details/1F680'
+      @es = new EventSource(url)
+      @nodez = {
+        method: 'GET',
+        host: server.hostname,
+        port: server.port,
+        path: '/admin/status.json'
+      }
+
+    after ->
+      # clean up after ourselves and close the eventsource connection
+      @es.close()
+
+    it 'MUST return results', (done) ->
+      req = http.get @nodez, (res) =>
+        @res = res
+        @body = ""
+        res.on 'data', (chunk) =>
+          @body += chunk
+        res.on 'end', =>
+          done()
+
+    it 'SHOULD set content-type as JSON', ->
+      expect(@res.headers['content-type']).to.match /application\/json/
+
+    describe 'status message body', ->
+      it 'MUST be valid parseable JSON', ->
+        @doc = JSON.parse(@body)
+      it 'MUST report the node name', ->
+        expect(@doc.node).to.be.a 'String'
+        expect(@doc.node).to.match /^\w+-\w+-\w+\.\d+$/
+      it 'SHOULD contain a status field and be OK', ->
+        expect(@doc.status).to.equal "OK"
+      it 'SHOULD contain a Unix timestamp of the report', ->
+        expect(@doc.reported_at).to.be.a 'Number'
+      it 'MUST contain an array of active connections', ->
+        expect(@doc.connections).to.be.a 'Array'
+      describe 'connection pool status', ->
+        before ->
+          @c = @doc.connections[0]
+        it 'MUST contain a request_path', ->
+          expect(@c.request_path).to.be.a 'String'
+        it 'MUST contain a namespace', ->
+          expect(@c.namespace).to.be.a 'String'
+        it 'MAY contain a `tag` field (DEPRECATED)'
+        it 'MUST contain a created_at as valid Unix timestamp', ->
+          expect(@c.created_at).to.be.a 'Number'
+        it 'MAY contain an age field in seconds (DEPRECATED)'
+        it 'SHOULD contain the client_ip', ->
+          expect(@c.client_ip).to.be.a 'String'
+        it 'SHOULD contain the user_agent', ->
+          expect(@c.user_agent).to.be.a 'String'
