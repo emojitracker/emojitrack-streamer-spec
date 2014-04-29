@@ -149,7 +149,7 @@ describe 'ADMIN endpoints', ->
         @doc = JSON.parse(@body)
       it 'MUST report the node name', ->
         expect(@doc.node).to.be.a 'String'
-        expect(@doc.node).to.match /^\w+-\w+-\w+\.\d+$/
+        # expect(@doc.node).to.match /^\w+-\w+-\w+\.\d+$/
       it 'SHOULD contain a status field and be OK', ->
         expect(@doc.status).to.equal "OK"
       it 'SHOULD contain a Unix timestamp of the report', ->
