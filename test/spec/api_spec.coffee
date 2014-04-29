@@ -115,16 +115,18 @@ describe 'SUBSCRIBE endpoints', ->
 describe 'ADMIN endpoints', ->
 
   describe 'GET /admin/node.json', ->
-    before ->
-      #make SSE connection so we are guaranted at least one active conn in pool
-      url = server.href + 'subscribe/details/1F680'
-      @es = new EventSource(url)
+    before (done) ->
       @nodez = {
         method: 'GET',
         host: server.hostname,
         port: server.port,
         path: '/admin/status.json'
       }
+
+      #make SSE connection so we are guaranted at least one active conn in pool
+      url = server.href + 'subscribe/details/1F680'
+      @es = new EventSource(url)
+      @es.onopen = -> done()
 
     after ->
       # clean up after ourselves and close the eventsource connection
