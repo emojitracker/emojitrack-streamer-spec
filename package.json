@@ -12,20 +12,15 @@
     "url": "http://github.com/mroth/emojitrack-streamer-spec"
   },
   "author": "Matthew Rothenberg <mroth@mroth.info>",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/mroth/emojitrack-streamer-spec/issues"
   },
   "homepage": "https://github.com/mroth/emojitrack-streamer-spec",
   "dependencies": {
-    "chai": "^1.9.1",
-    "coffee-script": "^1.7.1",
-    "eventsource": "^0.1.0",
-    "mocha": "^1.18.2",
-    "supertest": "^0.11.0"
-  },
-  "engines": {
-    "node": "0.10.x",
-    "npm": "1.4.x"
+    "chai": "^4.1.2",
+    "coffeescript": "^2.3.1",
+    "eventsource": "^1.0.5",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
   }
 }
