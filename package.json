@@ -2,20 +2,19 @@
   "name": "emojitrack-streamer-spec",
   "version": "0.0.1",
   "description": "Defines and tests the API for emojitrack streamers",
-  "main": "index.js",
   "private": true,
   "scripts": {
     "test": "mocha test/spec"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/mroth/emojitrack-streamer-spec"
+    "url": "http://github.com/emojitracker/emojitrack-streamer-spec"
   },
   "author": "Matthew Rothenberg <mroth@mroth.info>",
   "bugs": {
-    "url": "https://github.com/mroth/emojitrack-streamer-spec/issues"
+    "url": "https://github.com/emojitracker/emojitrack-streamer-spec/issues"
   },
-  "homepage": "https://github.com/mroth/emojitrack-streamer-spec",
+  "homepage": "https://github.com/emojitracker/emojitrack-streamer-spec",
   "dependencies": {
     "chai": "^4.1.2",
     "coffeescript": "^2.3.1",
