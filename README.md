@@ -1,20 +1,15 @@
-# emojitrack-streamer-spec
-
-> Emojitracker Streaming API Specification
+# Emojitracker Streaming API :dizzy:
 
 Defines the API spec for the Emojitracker Streaming API, and offer an acceptance
 test to be run against staging/production servers to verify they meet it.
 
--------------------------------------------------------------------------------
-
-## Emojitracker Streaming API Specification
+## Stream API Specifications
 
 All endpoints are normal HTTP connections, which emit EventSource/SSE formatted
 data.
 
 CORS headers are set to `*` so anyone can play, please don't abuse the
 privilege.
-
 
 ### When to use the Streaming API
 
@@ -156,4 +151,3 @@ This was mainly useful as we experiment with different routing layers and with
 rewriting emojitrack-streamer on different platforms.
 
     $ STREAM_SERVER=http://host:port npm test
-
