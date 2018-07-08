@@ -1,0 +1,34 @@
+# A sample docker-compose for testing against local containers,
+# in practice, you will want to actually test against staging
+# or production, since the routing layer will affect things,
+# thus this more here as an example for now.
+version: '3'
+services:
+  tester:
+    image: emojitracker/streamer-spec
+    build: .
+    environment:
+      - STREAM_SERVER=http://stream-api:9000/
+    depends_on:
+      - stream-api
+      - feeder
+
+  stream-api:
+    image: emojitracker/gostreamer
+    environment:
+      - PORT=9000
+      - GO_ENV=development
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "9000:9000"
+    depends_on:
+      - redis
+
+  feeder:
+    image: emojitracker/fakefeeder
+    command: ["-target=redis://redis:6379", "-rate=50"]
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
