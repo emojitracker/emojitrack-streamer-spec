@@ -4,7 +4,7 @@
   "description": "Defines and tests the API for emojitrack streamers",
   "private": true,
   "scripts": {
-    "test": "mocha test/spec"
+    "test": "mocha test/spec/*.coffee"
   },
   "repository": {
     "type": "git",
