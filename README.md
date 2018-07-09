@@ -138,14 +138,18 @@ evsource.addEventListener("stream.tweet_updates.1F351", event => {
 
 ### Streaming API Endpoints
 
-The current production implementation of the Emojitracker Streaming API endpoints
-is handled by [emojitracker/gostreamer](https://github.com/emojitracker/gostreamer).
-Go there if you are looking to hack on the implementation details.
+The current production implementation of the Emojitracker Streaming API
+endpoints is handled by [emojitrack-gostreamer]. Go there if you are looking to
+hack on the implementation details.
+
+[emojitrack-gostreamer]: https://github.com/emojitracker/emojitrack-gostreamer
 
 (There were also Ruby and NodeJS implementations, now deprecated.)
 
 ### Compliance Testing
-There are some (incomplete) integration tests to verify a Streaing API endpoint server in staging/production, including more detail about HTTP headers, etc.
+
+There are some (incomplete) integration tests to verify a Streaing API endpoint
+server in staging/production, including more detail about HTTP headers, etc.
 
 This was mainly useful as we experiment with different routing layers and with
 rewriting emojitrack-streamer on different platforms.
