@@ -49,7 +49,7 @@ The Emojitracker Streaming API takes advantage of many of these things. Notably,
 unlike the opaque binary format for Websockets, you you can simply curl any
 Emojitracker Streaming API endpoint and read the results with your own eyes.
 
-Try it! It's as simple as `curl https://stream.emojitracker.com/eps`.
+Try it! It's as simple as `curl https://stream.emojitracker.com/subscribe/eps`.
 
 Now say you want to hook into this with JavaScript? For the most part you
 can just let the browser's built-in support handle everything for you:
